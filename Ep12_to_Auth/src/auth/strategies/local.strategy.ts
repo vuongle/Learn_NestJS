@@ -14,7 +14,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   // PassportStrategy automatically extract email and password from request body
   // and pass it to this method
   validate(email: string, password: string) {
-    console.log('LocalStrategy.validate');
     return this.authService.validateUser(email, password);
   }
 }

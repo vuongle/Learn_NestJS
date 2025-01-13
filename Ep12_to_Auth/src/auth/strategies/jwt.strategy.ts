@@ -8,7 +8,7 @@ import { AuthJwtPayload } from 'src/auth/types/jwt.payload';
 // this jwt strategy is used to extract the access token from the request header
 // and check if it is valid.
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     @Inject(jwtConfig.KEY)
     private jwtCfg: ConfigType<typeof jwtConfig>,
@@ -16,14 +16,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: jwtCfg.secret,
-      //ignoreExpiration: false,
+      ignoreExpiration: false,
     });
   }
 
   // JwtStrategy automatically extract the token from request header
   // convert it to AuthJwtPayload then pass it to this method
   validate(payload: AuthJwtPayload) {
-    console.log('JwtStrategy:validate: ', payload);
     return { id: payload.sub };
   }
 }

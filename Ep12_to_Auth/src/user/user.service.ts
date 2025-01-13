@@ -28,12 +28,22 @@ export class UserService {
   async findOne(id: number) {
     return await this.userRepo.findOne({
       where: { id },
-      select: ['firstName', 'lastName', 'email', 'avatarUrl'],
+      select: [
+        'firstName',
+        'lastName',
+        'email',
+        'avatarUrl',
+        'hashedRefreshToken',
+      ],
     });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
+  }
+
+  async updateHashedRefreshToken(id: number, hashedRefreshToken: string) {
+    return await this.userRepo.update({ id }, { hashedRefreshToken });
   }
 
   remove(id: number) {
