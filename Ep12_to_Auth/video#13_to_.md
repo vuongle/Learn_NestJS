@@ -35,3 +35,17 @@ port: 5432
 user: lamadev
 pwd: lama123456
 db name: school
+
+## DB_URL=postgresql://lamadev:lama123456@localhost:5432/nestjs_realestate
+
+## DB_PORT=5432
+
+## cmd to generate secret key: openssl rand -hex 16
+
+## JWT_SECRET=5c7628ed0425463387479976567f74ed
+
+## JWT_EXPIRE_IN="5m"
+
+## REFRESH_JWT_SECRET=f10ec87f5f3514fb0d9f05c51d110d5c
+
+## REFRESH_JWT_EXPIRE_IN="1d"
