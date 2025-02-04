@@ -10,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Role } from 'src/auth/enums/role.enum';
 
 //
 // Relationships with the User entity:
@@ -39,6 +40,13 @@ export class User {
 
   @Column({ nullable: true })
   hashedRefreshToken: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role: Role;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -6,6 +6,7 @@ import refreshJwtConfig from 'src/auth/config/refresh-jwt.config';
 import { AuthJwtPayload } from 'src/auth/types/jwt.payload';
 import { UserService } from 'src/user/user.service';
 import * as argon2 from 'argon2';
+import { CurrentUser } from 'src/auth/types/current-user';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,21 @@ export class AuthService {
     return {
       id: user.id,
     };
+  }
+
+  async validateJwtUser(userId: number) {
+    const user = await this.userService.findOne(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const currentUser: CurrentUser = {
+      id: user.id,
+      role: user.role,
+    };
+
+    return currentUser;
   }
 
   async login(userId: number) {

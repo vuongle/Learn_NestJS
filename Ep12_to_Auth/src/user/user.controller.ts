@@ -13,8 +13,12 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
+import { Role } from 'src/auth/enums/role.enum';
+import { Roles } from 'src/auth/decorators/role.decorator';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 
 @Controller('users')
+@Roles(Role.USER)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -45,6 +49,10 @@ export class UserController {
   }
 
   @Delete(':id')
+  // @SetMetadata('role', [Role.ADMIN]) // an example of using built-in decorator to set role for an api
+  @Roles(Role.ADMIN) // instead of using built-in decorator, use a custom decorator
+  @UseGuards(RolesGuard) // use RolesGuard to check roles allowed for this route or not
+  @UseGuards(JwtAuthGuard) // use JwtAuthGuard here to extract jwt in header and append it to user object in the request. JwtAuthGuard must be closer the route than RolesGuard
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
