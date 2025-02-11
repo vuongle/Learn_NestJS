@@ -1,4 +1,4 @@
-Here are the key points covered in the video #12 to #:
+Here are the key points covered in the video #13 to #:
 
 - Hashing password
 - Authentication(local strategy) by passport.js
@@ -29,12 +29,24 @@ npm i --save @nestjs/typeorm typeorm pg
 
 ## Postgres in docker
 
-This example use the "postgres:13.3-alpine" image to run the container with configs:
+#### On mac
+
+image name: postgres:13.3-alpine
 container name:nextjs_school_dashboard
 port: 5432
 user: lamadev
 pwd: lama123456
 db name: school
+
+#### On win
+
+image name: postgres:13
+container name:postgres_13
+volume name: win_learn_nest_postgres_13
+port: 5432
+user: lamadev
+pwd: lama123456
+db name: nestjs_realestate
 
 ## DB_URL=postgresql://lamadev:lama123456@localhost:5432/nestjs_realestate
 

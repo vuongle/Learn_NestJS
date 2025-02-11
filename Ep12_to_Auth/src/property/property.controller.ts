@@ -14,6 +14,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { RequestHeader } from 'src/property/decorator/requestHeader';
 import { CreatePropertyDto } from 'src/property/dto/createProperty.dto';
 import {
@@ -29,11 +30,15 @@ import { PropertyService } from 'src/property/property.service';
 
 @Controller('properties')
 export class PropertyController {
-  constructor(private propertyService: PropertyService) {}
+  constructor(
+    private propertyService: PropertyService,
+    private configService: ConfigService,
+  ) {}
 
   // An example of using query params for pagination
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
+    console.log(this.configService.get<string>('DB_URL'));
     return this.propertyService.findAll(paginationDto);
   }
 

@@ -9,7 +9,6 @@ export default (): PostgresConnectionOptions => ({
   url: process.env.DB_URL,
   type: 'postgres',
   port: +process.env.DB_PORT, // "+" convert string to number
-  //entities: [Property], // register entities manually, this way is not good when there are many entities
   entities: [path.resolve(__dirname, '..') + '/**/*.entity.{js,ts}'], // register entities automatically
-  synchronize: true, // do not use "true" in production
+  synchronize: process.env.NODE_ENV === 'development' ? true : false, // do not use "true" in production
 });

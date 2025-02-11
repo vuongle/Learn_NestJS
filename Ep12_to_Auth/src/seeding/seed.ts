@@ -2,7 +2,7 @@
 // This is the entry point of the seeding process
 //
 
-import dbConfig from '../config/db.config';
+import dbConfigSeeding from 'src/config/db.config.seeding';
 import { MainSeeder } from './main.seeder';
 import { PropertyFactory } from './property.factory';
 import { PropertyFeatureFactory } from './propertyFeature.factory';
@@ -12,7 +12,7 @@ import { runSeeders, SeederOptions } from 'typeorm-extension';
 
 // create an option that includes both datasource option and seeding option
 const options: DataSourceOptions & SeederOptions = {
-  ...dbConfig(),
+  ...dbConfigSeeding(),
   factories: [PropertyFactory, UserFactory, PropertyFeatureFactory],
   seeds: [MainSeeder],
 };
